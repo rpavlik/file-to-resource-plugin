@@ -2,6 +2,7 @@ import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 
 plugins {
     kotlin("jvm") version BuildPluginsVersion.KOTLIN apply false
+    `java-gradle-plugin`
     id("com.gradle.plugin-publish") version BuildPluginsVersion.PLUGIN_PUBLISH apply false
     id("io.gitlab.arturbosch.detekt") version BuildPluginsVersion.DETEKT
     id("org.jlleitschuh.gradle.ktlint") version BuildPluginsVersion.KTLINT
@@ -56,6 +57,3 @@ tasks.withType<DependencyUpdatesTask> {
 
 fun isNonStable(version: String) = "^[0-9,.v-]+(-r)?$".toRegex().matches(version).not()
 
-tasks.register("clean", Delete::class.java) {
-    delete(rootProject.buildDir)
-}
