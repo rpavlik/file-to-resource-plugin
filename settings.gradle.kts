@@ -6,7 +6,7 @@ pluginManagement {
     }
 }
 
-rootProject.name = ("kotlin-gradle-plugin-template")
+rootProject.name = ("file-to-resource-plugin")
 
-include(":example")
+// include(":example")
 includeBuild("plugin-build")

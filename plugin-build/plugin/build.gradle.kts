@@ -5,10 +5,14 @@ plugins {
 }
 
 dependencies {
-    implementation(kotlin("stdlib-jdk7"))
+    implementation(kotlin("stdlib-jdk8"))
     implementation(gradleApi())
+    implementation("com.android.tools.build:gradle:4.1.0")
 
     testImplementation(TestingLib.JUNIT)
+
+    testImplementation("com.google.truth:truth:1.1")
+    testImplementation("com.google.truth.extensions:truth-java8-extension:1.1")
 }
 
 java {

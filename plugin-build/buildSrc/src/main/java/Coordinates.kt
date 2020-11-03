@@ -1,20 +1,20 @@
 object PluginCoordinates {
-    const val ID = "com.ncorti.kotlin.gradle.template.plugin"
-    const val GROUP = "com.ncorti.kotlin.gradle.template"
+    const val ID = "com.collabora.gradle.fileToResource.plugin"
+    const val GROUP = "com.collabora.gradle.fileToResource"
     const val VERSION = "1.0.0"
-    const val IMPLEMENTATION_CLASS = "com.ncorti.kotlin.gradle.template.plugin.TemplatePlugin"
+    const val IMPLEMENTATION_CLASS = "com.collabora.gradle.fileToResource.plugin.FileToResourcePlugin"
 }
 
 object PluginBundle {
-    const val VCS = "https://github.com/cortinico/kotlin-gradle-plugin-template"
-    const val WEBSITE = "https://github.com/cortinico/kotlin-gradle-plugin-template"
-    const val DESCRIPTION = "An empty Gradle plugin created from a template"
-    const val DISPLAY_NAME = "An empty Gradle Plugin from a template"
+    const val VCS = "https://github.com/rpavlik/file-to-resource-plugin"
+    const val WEBSITE = "https://github.com/rpavlik/file-to-resource-plugin"
+    const val DESCRIPTION = "Process a file somehow to produce an Android resource"
+    const val DISPLAY_NAME = "File-to-Android-resource process"
     val TAGS = listOf(
         "plugin",
         "gradle",
-        "sample",
-        "template"
+        "android",
+        "resource"
     )
 }
 
