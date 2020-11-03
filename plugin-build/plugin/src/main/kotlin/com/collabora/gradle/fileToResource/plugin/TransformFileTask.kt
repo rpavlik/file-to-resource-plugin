@@ -10,7 +10,7 @@ import org.gradle.api.provider.Property
 import org.gradle.api.tasks.*
 import org.gradle.api.tasks.options.Option
 
-abstract class GenerateRawResourceTask : DefaultTask() {
+abstract class TransformFileTask : DefaultTask() {
 
     init {
         description = "Convert a file into an Android raw resource"

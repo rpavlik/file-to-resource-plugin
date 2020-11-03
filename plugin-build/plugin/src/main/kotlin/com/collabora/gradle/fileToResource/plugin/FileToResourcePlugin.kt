@@ -13,6 +13,8 @@ abstract class FileToResourcePlugin : Plugin<Project> {
 
     companion object {
         const val EXTENSION_NAME = "fileToResource"
+        const val RAW_TASK_NAME_PREFIX = "fileToRawResource"
+        const val TASK_NAME_PREFIX = "fileToResource"
     }
 
     // Google apparently forgot to include something like this in ArtifactType,
@@ -25,31 +27,23 @@ abstract class FileToResourcePlugin : Plugin<Project> {
 
         val android = project.extensions.getByType(CommonExtension::class.java)
         android.onVariantProperties {
-            val rawTaskProviders = extension.rawResources.map { resource ->
-                val taskProvider = project.tasks.register("fileToRawResource${resource.name}${this.name.capitalize()}", GenerateRawResourceTask::class.java) { task ->
+            extension.rawResources.all { resource ->
+                val taskProvider = project.tasks.register("$RAW_TASK_NAME_PREFIX${resource.name}${this.name.capitalize()}", TransformFileTask::class.java) { task ->
                     task.name.set(resource.name)
                     task.inputFile.set(resource.inputFile)
-                    task.outputDirectory.set(project.layout.buildDirectory.map { it.dir("generated/fileToResource/res/raw/") })
+                    task.outputDirectory.set(project.layout.buildDirectory.map { it.dir( "generated/fileToResource/res/raw/") })
                     task.outputFile.set(task.outputDirectory.map { it.file("${resource.name}.txt") })
                 }
-                // GenerateRawResourceTask.register(project, this, resource)
-//                        project.tasks.register("fileToRawResource${resource.name}${this.name}", GenerateRawResourceTask::class.java) {
-//                    it.name.set(resource.name)
-//                    it.function.set(resource.function)
-//                    it.inputFile.set(resource.inputFile)
-//
-//                }
                 artifacts.use(taskProvider).wiredWithFiles(
-                    GenerateRawResourceTask::inputFile,
-                    GenerateRawResourceTask::outputFile
+                    TransformFileTask::inputFile,
+                    TransformFileTask::outputFile
                 ).toTransform(SingleFileTransformableArtifact)
-                taskProvider
             }
         }
 
         // See https://github.com/android/gradle-recipes/blob/bd8336e32ae512c630911287ea29b45a6bacb73b/Kotlin/addCustomResValueFromTask/app/build.gradle.kts
         extension.stringResources.all { resource ->
-            val taskProvider = project.tasks.register("fileToResource${resource.name}", GenerateRawResourceTask::class.java) { task ->
+            val taskProvider = project.tasks.register("fileToResource${resource.name}", TransformFileTask::class.java) { task ->
                 task.name.set(resource.name)
                 task.inputFile.set(resource.inputFile)
                 task.outputDirectory.set(project.layout.buildDirectory.map { it.dir("intermediates/fileToResource/") })
