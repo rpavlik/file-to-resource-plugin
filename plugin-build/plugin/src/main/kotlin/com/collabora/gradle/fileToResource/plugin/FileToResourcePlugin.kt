@@ -12,12 +12,12 @@ import org.gradle.api.file.RegularFile
 abstract class FileToResourcePlugin : Plugin<Project> {
 
     companion object {
-        val EXTENSION_NAME = "fileToResource"
+        const val EXTENSION_NAME = "fileToResource"
     }
 
     // Google apparently forgot to include something like this in ArtifactType,
     // at least in the 4.1.0 plugin. Could use ArtifactType.BUNDLE but it feels wrong - what's a "BUNDLE" anyway?
-    object SINGLE_FILE_ARTIFACT : SingleArtifact<RegularFile>(ArtifactKind.FILE), Transformable
+    object SingleFileTransformableArtifact : SingleArtifact<RegularFile>(ArtifactKind.FILE), Transformable
 
     override fun apply(project: Project) {
         // Add the 'fileToResource' extension object
@@ -42,7 +42,7 @@ abstract class FileToResourcePlugin : Plugin<Project> {
                 artifacts.use(taskProvider).wiredWithFiles(
                     GenerateRawResourceTask::inputFile,
                     GenerateRawResourceTask::outputFile
-                ).toTransform(SINGLE_FILE_ARTIFACT)
+                ).toTransform(SingleFileTransformableArtifact)
                 taskProvider
             }
         }

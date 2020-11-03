@@ -6,7 +6,5 @@ pluginManagement {
     }
 }
 
-rootProject.name = ("file-to-resource-plugin")
-
 // include(":example")
 includeBuild("plugin-build")
