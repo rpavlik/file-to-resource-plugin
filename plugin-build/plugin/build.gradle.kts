@@ -23,7 +23,7 @@ java {
 }
 
 group = "com.collabora.filetoresource.plugin"
-version = "0.9.0-SNAPSHOT"
+version = "0.9.1"
 
 val pluginId = "fileToResourcePlugin"
 
@@ -52,10 +52,6 @@ pluginBundle {
         getByName(pluginId) {
             displayName = "File-to-Resource Gradle Plugin"
         }
-    }
-
-    mavenCoordinates {
-        artifactId = "file-to-resource-plugin"
     }
 }
 
