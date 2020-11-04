@@ -1,6 +1,8 @@
-package com.collabora.gradle.fileToResource.plugin
+package com.collabora.fileToResource.plugin
 
-import com.google.common.truth.Truth.assertThat
+import com.collabora.gradle.fileToResource.plugin.FileToResourceExtension
+import com.collabora.gradle.fileToResource.plugin.FileToResourcePlugin
+import com.google.common.truth.Truth
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.Before
@@ -26,17 +28,16 @@ class FileToResourcePluginTest {
 
     @Test
     fun `plugin is applied correctly to the project`() {
-        assertThat(project.extensions.getByName(FileToResourcePlugin.EXTENSION_NAME)).isInstanceOf(
+        Truth.assertThat(project.extensions.getByName(FileToResourcePlugin.EXTENSION_NAME)).isInstanceOf(
             FileToResourceExtension::class.java
         )
     }
 
     @Test
     fun `plugin does not create any tasks right away`() {
-
         project.tasks.names.onEach {
-            assertThat(it).doesNotContain(FileToResourcePlugin.TASK_NAME_PREFIX)
-            assertThat(it).doesNotContain(FileToResourcePlugin.RAW_TASK_NAME_PREFIX)
+            Truth.assertThat(it).doesNotContain(FileToResourcePlugin.TASK_NAME_PREFIX)
+            Truth.assertThat(it).doesNotContain(FileToResourcePlugin.RAW_TASK_NAME_PREFIX)
         }
     }
 }

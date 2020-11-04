@@ -1,10 +1,10 @@
-@file:Suppress("UnstableApiUsage")
 package com.collabora.gradle.fileToResource.plugin
 
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 
+@Suppress("UnstableApiUsage")
 abstract class TransformFileToRawResourceTask : TransformFileTask() {
 
     @get:Input

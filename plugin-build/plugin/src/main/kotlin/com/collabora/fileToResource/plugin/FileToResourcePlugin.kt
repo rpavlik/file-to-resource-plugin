@@ -39,7 +39,6 @@ abstract class FileToResourcePlugin : Plugin<Project> {
          * This uses the pre-4.1.0 interface, which is the only way to get to registerGeneratedResFolders.
          */
         private fun onAllVariants(project: Project, action: (BaseVariant) -> Unit) {
-
             val androidAppExtension = project.extensions.findByType(AppExtension::class.java)
             if (androidAppExtension != null) {
                 androidAppExtension.applicationVariants.all(action)

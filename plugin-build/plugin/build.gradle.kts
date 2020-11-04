@@ -2,10 +2,12 @@ plugins {
     kotlin("jvm")
     id("java-gradle-plugin")
     id("com.gradle.plugin-publish")
+    `maven-publish`
 }
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
+    implementation(kotlin("reflect", BuildPluginsVersion.KOTLIN))
     implementation(gradleApi())
     implementation("com.android.tools.build:gradle:4.1.0")
 
@@ -20,26 +22,52 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
+group = "com.collabora.fileToResource.plugin"
+version = "0.9.0-SNAPSHOT"
+
+val pluginId = "fileToResourcePlugin"
+
 gradlePlugin {
     plugins {
-        create(PluginCoordinates.ID) {
-            id = PluginCoordinates.ID
-            implementationClass = PluginCoordinates.IMPLEMENTATION_CLASS
-            version = PluginCoordinates.VERSION
+        create(pluginId) {
+            id = "${project.group}"
+            implementationClass = "${project.group}.FileToResourcePlugin"
         }
     }
 }
 
 // Configuration Block for the Plugin Marker artifact on Plugin Central
 pluginBundle {
-    website = PluginBundle.WEBSITE
-    vcsUrl = PluginBundle.VCS
-    description = PluginBundle.DESCRIPTION
-    tags = PluginBundle.TAGS
+    website = "https://github.com/rpavlik/file-to-resource-plugin"
+    vcsUrl = "https://github.com/rpavlik/file-to-resource-plugin"
+    description = "Process a file somehow to produce an Android resource"
+    tags = listOf(
+        "plugin",
+        "gradle",
+        "android",
+        "resource"
+    )
 
     plugins {
-        getByName(PluginCoordinates.ID) {
-            displayName = PluginBundle.DISPLAY_NAME
+        getByName(pluginId) {
+            displayName = "File-to-Resource Gradle Plugin"
+        }
+    }
+
+    mavenCoordinates {
+        groupId = "${project.group}"
+        artifactId = "file-to-resource-plugin"
+    }
+}
+
+publishing {
+    repositories {
+        mavenLocal()
+        maven {
+            // change URLs to point to your repos, e.g. http://my.org/repo
+            val releasesRepoUrl = uri("$buildDir/repos/releases")
+            val snapshotsRepoUrl = uri("$buildDir/repos/snapshots")
+            url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
         }
     }
 }

@@ -10,9 +10,6 @@ plugins {
 }
 
 allprojects {
-    group = PluginCoordinates.GROUP
-    version = PluginCoordinates.VERSION
-
     repositories {
         google()
         mavenCentral()

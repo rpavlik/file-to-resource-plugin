@@ -6,4 +6,6 @@ pluginManagement {
     }
 }
 
+rootProject.name = "file-to-resource-plugin"
+
 include(":plugin")
