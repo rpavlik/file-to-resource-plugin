@@ -10,8 +10,13 @@ buildscript {
 }
 
 apply plugin: 'com.android.application'
-//apply plugin: 'com.collabora.gradle.fileToResource.plugin'
+//apply  com.collabora.gradle.fileToResource.plugin.FileToResourcePlugin
+
 
 android {
     compileSdkVersion 30
+    defaultConfig {
+        applicationId 'com.collabora.fileToResource.example'
+        minSdkVersion 16
+    }
 }
