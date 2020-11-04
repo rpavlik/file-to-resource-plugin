@@ -1,7 +1,7 @@
 package com.collabora.fileToResource.plugin
 
-import com.collabora.gradle.fileToResource.plugin.FileToResourceExtension
-import com.collabora.gradle.fileToResource.plugin.FileToResourcePlugin
+import com.collabora.filetoresource.plugin.FileToResourceExtension
+import com.collabora.filetoresource.plugin.FileToResourcePlugin
 import com.google.common.truth.Truth
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder

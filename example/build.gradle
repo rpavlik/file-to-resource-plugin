@@ -10,7 +10,7 @@ buildscript {
 }
 
 apply plugin: 'com.android.application'
-//apply  com.collabora.gradle.fileToResource.plugin.FileToResourcePlugin
+//apply  com.collabora.filetoresource.plugin.FileToResourcePlugin
 
 
 android {

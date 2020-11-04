@@ -1,4 +1,4 @@
-package com.collabora.gradle.fileToResource.plugin
+package com.collabora.filetoresource.plugin
 
 import org.gradle.api.NamedDomainObjectCollection
 import org.gradle.api.model.ObjectFactory

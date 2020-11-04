@@ -22,7 +22,7 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-group = "com.collabora.fileToResource.plugin"
+group = "com.collabora.filetoresource.plugin"
 version = "0.9.0-SNAPSHOT"
 
 val pluginId = "fileToResourcePlugin"
@@ -55,7 +55,6 @@ pluginBundle {
     }
 
     mavenCoordinates {
-        groupId = "${project.group}"
         artifactId = "file-to-resource-plugin"
     }
 }

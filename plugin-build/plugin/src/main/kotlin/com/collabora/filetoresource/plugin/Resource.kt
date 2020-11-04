@@ -1,4 +1,4 @@
-package com.collabora.gradle.fileToResource.plugin
+package com.collabora.filetoresource.plugin
 
 import org.gradle.api.Transformer
 import org.gradle.api.file.RegularFile

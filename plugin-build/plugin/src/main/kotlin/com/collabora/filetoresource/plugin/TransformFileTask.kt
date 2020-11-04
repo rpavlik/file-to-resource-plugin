@@ -1,6 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
-package com.collabora.gradle.fileToResource.plugin
+package com.collabora.filetoresource.plugin
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.Transformer
@@ -12,6 +12,7 @@ import org.gradle.api.provider.Property
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFile
+import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.options.Option
@@ -36,10 +37,11 @@ abstract class TransformFileTask : DefaultTask() {
     @get:Option(option = "input", description = "The input file to process")
     abstract val inputFile: RegularFileProperty
 
-    @get:Option(option = "outputDirectory", description = "The place to put the output")
+    @get:Internal
     abstract val outputDirectory: DirectoryProperty
 
-    private val outFileName: Provider<String> by lazy {
+    @get:Internal
+    val outFileName: Provider<String> by lazy {
         name.map { "$it.txt" }
     }
 

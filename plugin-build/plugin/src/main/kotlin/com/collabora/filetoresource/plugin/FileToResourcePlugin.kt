@@ -1,4 +1,4 @@
-package com.collabora.gradle.fileToResource.plugin
+package com.collabora.filetoresource.plugin
 
 import com.android.build.api.artifact.Artifact.SingleArtifact
 import com.android.build.api.artifact.Artifact.Transformable
