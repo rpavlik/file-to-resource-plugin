@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 package com.collabora.gradle.fileToResource.plugin
 
 import org.gradle.api.DefaultTask
@@ -7,15 +9,18 @@ import org.gradle.api.file.RegularFile
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.plugins.BasePlugin
 import org.gradle.api.provider.Property
-import org.gradle.api.tasks.*
+import org.gradle.api.provider.Provider
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputFile
+import org.gradle.api.tasks.OutputFile
+import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.options.Option
 
 abstract class TransformFileTask : DefaultTask() {
 
     init {
-        description = "Convert a file into an Android raw resource"
+        description = "Transform a file, for use as a raw resources or for later, other usage"
 
-        // Don't forget to set the group here.
         group = BasePlugin.BUILD_GROUP
     }
 
@@ -31,28 +36,29 @@ abstract class TransformFileTask : DefaultTask() {
     @get:Option(option = "input", description = "The input file to process")
     abstract val inputFile: RegularFileProperty
 
-    @get:OutputDirectory
+    @get:Option(option = "outputDirectory", description = "The place to put the output")
     abstract val outputDirectory: DirectoryProperty
 
+    private val outFileName: Provider<String> by lazy {
+        name.map { "$it.txt" }
+    }
+
     @get:OutputFile
-    abstract val outputFile: RegularFileProperty
+    val outputFile: RegularFileProperty by lazy {
+        project.objects.fileProperty().value(outputDirectory.file(outFileName))
+    }
 
     @TaskAction
     fun produce() {
+        // Set a default output directory
+        outputDirectory.convention(project.layout.buildDirectory.dir("generated/TransformFile"))
         val result = function.get().transform(inputFile.get())
-        val outFile = outputFile.get().asFile
-        outFile.writeText(result)
+        outputFile.get().asFile.also {
+            it.parentFile.mkdirs()
+            it.writeText(result)
+        }
         logger.info("Wrote contents for resource $name")
+
     }
 
-//    companion object {
-//        fun register(project: Project, variantProperties: VariantProperties, resource: Resource): TaskProvider<GenerateRawResourceTask> {
-//            return project.tasks.register("fileToRawResource${resource.name}${variantProperties.name.capitalize()}", GenerateRawResourceTask::class.java) { task ->
-//                task.name.set(resource.name)
-//                task.inputFile.set(resource.inputFile)
-//                task.outputDirectory.set(project.layout.buildDirectory.map { it.dir("generated/fileToResource/res/raw/") })
-//                task.outputFile.set(task.outputDirectory.map { it.file("${resource.name}.txt") })
-//            }
-//        }
-//    }
 }

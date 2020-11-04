@@ -6,6 +6,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = ("com.collabora.gradle.fileToResource")
-
 include(":plugin")

@@ -26,6 +26,17 @@ class FileToResourcePluginTest {
 
     @Test
     fun `plugin is applied correctly to the project`() {
-        assertThat(project.extensions.getByName(FileToResourcePlugin.EXTENSION_NAME)).isInstanceOf(FileToResourceExtension::class.java)
+        assertThat(project.extensions.getByName(FileToResourcePlugin.EXTENSION_NAME)).isInstanceOf(
+            FileToResourceExtension::class.java
+        )
+    }
+
+    @Test
+    fun `plugin does not create any tasks right away`() {
+
+        project.tasks.names.onEach {
+            assertThat(it).doesNotContain(FileToResourcePlugin.TASK_NAME_PREFIX)
+            assertThat(it).doesNotContain(FileToResourcePlugin.RAW_TASK_NAME_PREFIX)
+        }
     }
 }
