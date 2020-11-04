@@ -58,7 +58,5 @@ abstract class TransformFileTask : DefaultTask() {
             it.writeText(result)
         }
         logger.info("Wrote contents for resource $name")
-
     }
-
 }

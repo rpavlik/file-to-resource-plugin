@@ -15,7 +15,8 @@ abstract class TransformFileToRawResourceTask : TransformFileTask() {
             project.layout.buildDirectory
                 .dir("generated/fileToResource")
                 .flatMap { it.dir(variantName) }
-                .map { it.dir("res") })
+                .map { it.dir("res") }
+        )
     }
 
     override val outputDirectory: DirectoryProperty by lazy {

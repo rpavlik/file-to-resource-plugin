@@ -56,4 +56,3 @@ tasks.withType<DependencyUpdatesTask> {
 }
 
 fun isNonStable(version: String) = "^[0-9,.v-]+(-r)?$".toRegex().matches(version).not()
-

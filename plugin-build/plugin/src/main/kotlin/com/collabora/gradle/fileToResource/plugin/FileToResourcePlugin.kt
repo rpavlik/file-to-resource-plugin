@@ -55,7 +55,8 @@ abstract class FileToResourcePlugin : Plugin<Project> {
 
     // Google apparently forgot to include something like this in ArtifactType,
     // at least in the 4.1.0 plugin. Could use ArtifactType.BUNDLE but it feels wrong
-    object SingleFileTransformableArtifact : SingleArtifact<RegularFile>(ArtifactKind.FILE),
+    object SingleFileTransformableArtifact :
+        SingleArtifact<RegularFile>(ArtifactKind.FILE),
         Transformable
 
     override fun apply(project: Project) {
@@ -67,10 +68,12 @@ abstract class FileToResourcePlugin : Plugin<Project> {
 
         // Only the Transform to raw resource tasks need to have their results added as resource dirs.
         // This syntax is awkward but needed for Kotlin 1.3.72 compat (because that's what gradle uses)
-        afterEvaluate(Consumer<Project> {project1 -> registerResFolders(project1)
-        })
+        afterEvaluate(
+            Consumer<Project> { project1 ->
+                registerResFolders(project1)
+            }
+        )
     }
-
 
     private fun registerTasks410(project: Project, extension: FileToResourceExtension) {
         val android = project.extensions.getByType(CommonExtension::class.java)
@@ -91,7 +94,6 @@ abstract class FileToResourcePlugin : Plugin<Project> {
                     TransformFileToRawResourceTask::inputFile,
                     TransformFileToRawResourceTask::outputFile
                 ).toTransform(SingleFileTransformableArtifact)
-
             }
         }
 
@@ -114,7 +116,5 @@ abstract class FileToResourcePlugin : Plugin<Project> {
                 )
             }
         }
-
     }
-
 }
